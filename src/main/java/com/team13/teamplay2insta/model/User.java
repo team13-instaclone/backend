@@ -20,9 +20,20 @@ public class User extends Timestamped{
     private String name;//실명
 
     @Column(nullable = false)
-    private String password;
+    private String pwd;
 
     //user가 쓴 글 목록 볼 경우를 대비해 만듦
     @OneToMany(mappedBy = "user")
     private List<Post> post;
+
+    public User(String username, String name, String pwd) {
+        this.username = username;
+        this.name = name;
+        this.pwd = pwd;
+
+    }
+
+    public User() {
+
+    }
 }
