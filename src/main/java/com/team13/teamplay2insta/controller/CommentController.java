@@ -29,7 +29,7 @@ public class CommentController {
     private final UserService userService;
 
     @ApiOperation(value = "댓글 추가")
-    @PostMapping("/comments")
+    @PostMapping("/api/comment")
     public List<Comment> addComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal @ApiIgnore UserDetailsImpl userDetails) {
         User user = userService.userFromUserDetails(userDetails);
         Long postId = commentRequestDto.getPostid();
@@ -48,7 +48,7 @@ public class CommentController {
 //    }
 
     @ApiOperation(value = "댓글 삭제")
-    @DeleteMapping("/comments/{commentId}")
+    @DeleteMapping("/api/comment")
     public void deleteComment(
             @PathVariable @ApiParam(value = "댓글 아이디", required = true) Long commentId
             , @RequestParam @ApiParam(value = "댓글 한개의 정보를 가진 객체", required = true) Long articleId

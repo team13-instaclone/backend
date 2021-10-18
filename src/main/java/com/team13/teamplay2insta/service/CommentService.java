@@ -26,10 +26,10 @@ public class CommentService {
     public final PostRepository postRepository;
 
     //댓글 추가
-    public Comment addComment(Long articleId, CommentRequestDto commentRequestDto, User user) {
+    public Comment addComment(Long postid, CommentRequestDto commentRequestDto, User user) {
 
         // 게시글 존재여부 확인
-        Post post = postRepository.findById(articleId).orElseThrow(
+        Post post = postRepository.findById(postid).orElseThrow(
                 () -> new PostNotFoundException("해당 게시글을 찾을 수 없어 댓글을 추가할 수 없습니다."));
 
         Comment comment = new Comment(user, post, commentRequestDto.getComment());
@@ -66,14 +66,14 @@ public class CommentService {
 //    }
 
     //댓글 삭제
-    public ResponseEntity deleteComment(Long articleId, Long commentId,User user) {
+    public ResponseEntity deleteComment(Long postid, Long commentid,User user) {
 
         // 게시글 존재여부 확인
-        Post post = postRepository.findById(articleId).orElseThrow(
+        Post post = postRepository.findById(postid).orElseThrow(
                 () -> new PostNotFoundException("해당 게시물을 찾을 수 없어 댓글을 삭제 할 수 없습니다."));
 
         // 댓글 존재여부 확인
-        Comment comment = commentRepository.findById(commentId).orElseThrow(
+        Comment comment = commentRepository.findById(commentid).orElseThrow(
                 () -> new CommentNotFoundException("해당 댓글을 찾을 수 없어 삭제할 수 없습니다."));
 
         // DB에 있는 comment 의 articleId와 DB에 있는 post ID를 비교
@@ -88,6 +88,9 @@ public class CommentService {
         commentRepository.delete(comment);
         return new ResponseEntity(DefaultResponse.res(SuccessYn.OK, StatusCode.OK, "댓글 삭제가 완료되었습니다.", null), HttpStatus.OK);
     }
+
+
+
 
     public Page<Comment> getComments(User user) {
         return commentRepository.findAllByUserOrderByCreatedAtDesc(user, PageRequest.of(0,5));
