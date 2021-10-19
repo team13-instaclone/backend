@@ -1,7 +1,7 @@
 package com.team13.teamplay2insta.service;
 
 import com.team13.teamplay2insta.dto.ResponseDto;
-import com.team13.teamplay2insta.dto.SignupRequestDto;
+import com.team13.teamplay2insta.dto.User.SignupRequestDto;
 import com.team13.teamplay2insta.exception.CustomErrorException;
 import com.team13.teamplay2insta.model.User;
 import com.team13.teamplay2insta.repository.UserRepository;

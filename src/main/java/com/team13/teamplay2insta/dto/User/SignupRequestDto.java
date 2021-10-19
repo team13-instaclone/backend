@@ -1,4 +1,4 @@
-package com.team13.teamplay2insta.dto;
+package com.team13.teamplay2insta.dto.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
