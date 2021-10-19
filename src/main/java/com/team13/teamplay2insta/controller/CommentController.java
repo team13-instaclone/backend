@@ -4,6 +4,7 @@ import com.team13.teamplay2insta.dto.comment.CommentDeleteRequestDto;
 import com.team13.teamplay2insta.dto.comment.CommentRequestDto;
 import com.team13.teamplay2insta.dto.comment.CommentResponseDto;
 import com.team13.teamplay2insta.dto.ResponseDto;
+import com.team13.teamplay2insta.dto.comment.CommentUpdateRequestDto;
 import com.team13.teamplay2insta.exception.CustomErrorException;
 import com.team13.teamplay2insta.model.Comment;
 import com.team13.teamplay2insta.model.User;
@@ -45,15 +46,17 @@ public class CommentController {
         return new ResponseDto("success",responseDto);
     }
 
-//    @ApiOperation(value = "댓글 수정")
-//    @PutMapping("/comments/{commentId}")
-//    public void modifyComment(
-//            @PathVariable @ApiParam(value = "댓글 아이디", required = true) Long commentId
-//            , @RequestBody @ApiParam(value = "댓글 한개의 정보를 가진 객체", required = true) CommentRequestDto commentRequestDto
-//            , @AuthenticationPrincipal @ApiIgnore UserDetailsImpl userDetails
-//    ) {
-//        commentService.modifyComment(commentId, commentRequestDto, userDetails.getUser());
-//    }
+    @PutMapping("/api/comment")
+    public ResponseDto modifyComment(
+            @RequestBody CommentUpdateRequestDto requestDto,
+            @AuthenticationPrincipal @ApiIgnore UserDetailsImpl userDetails
+    ) {
+        checkLogin(userDetails);
+        return commentService.modifyComment(
+                requestDto.getCommentid(),
+                requestDto.getComment(),
+                userDetails.getUser());
+    }
 
     @DeleteMapping("/api/comment")
     public ResponseDto deleteComment(

@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class CommentDeleteRequestDto {
-    Long commentid; //api가 소문자...
+    private Long commentid; //api가 소문자...
 }
