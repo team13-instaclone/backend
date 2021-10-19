@@ -42,6 +42,15 @@ public class UserController {
         //body에도 보내주기 혹시모르니까
         return new ResponseDto("success",token);
     }
+
+    //유저이름 중복확인
+    @PostMapping("/api/user/redunbancy")
+    public ResponseDto checkRedunbancy(@RequestBody String username){
+
+        userService.checkRedunbancy(username);
+
+        return new ResponseDto("success","중복되지 않습니다");
+    }
 }
 
 
