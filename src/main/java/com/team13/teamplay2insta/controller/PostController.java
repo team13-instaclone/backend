@@ -38,6 +38,10 @@ public class PostController {
         return new ResponseDto("success","저장됨");
     }
 
+//    @PostMapping("/api/post")
+//    public ResponseDto
+
+
     private void checkLogin(UserDetailsImpl userDetails) {
         if(userDetails == null){
             throw new CustomErrorException("로그인 사용자만 이용가능합니다.");
