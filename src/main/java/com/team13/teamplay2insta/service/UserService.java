@@ -5,6 +5,7 @@ import com.team13.teamplay2insta.dto.SignupRequestDto;
 import com.team13.teamplay2insta.exception.CustomErrorException;
 import com.team13.teamplay2insta.model.User;
 import com.team13.teamplay2insta.repository.UserRepository;
+import com.team13.teamplay2insta.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,12 @@ public class UserService {
             throw new CustomErrorException("비밀번호가 맞지 않습니다.");
         }
         return user;
+    }
+
+    public User loadLoginUser(UserDetailsImpl userDetails){
+        return userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
+                ()->new CustomErrorException("로그인된 유저의 정보를 찾을 수 없습니다")
+        );
     }
 }
 
