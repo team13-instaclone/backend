@@ -10,5 +10,4 @@ public class CommentRequestDto {
     private Long commentid;
     private String username;
     private String comment;
-
 }
