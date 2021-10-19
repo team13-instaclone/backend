@@ -9,9 +9,7 @@ import com.team13.teamplay2insta.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -40,7 +38,7 @@ public class PostController {
     }
 
     @DeleteMapping("/api/post")
-    public ResponseDto deletePost(Long postid, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseDto deletePost(@RequestParam Long postid, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         checkLogin(userDetails);
         postService.deletePost(postid);
         return new ResponseDto("success","삭제완료");
