@@ -16,11 +16,11 @@ public class Teamplay2InstaApplication {
         SpringApplication.run(Teamplay2InstaApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner demo(PostRepository repository) {
-        return (args) -> {
-            repository.save(new Post(null, "이미지", "아무거나"));
-        };
-
-    }
+//    @Bean
+//    public CommandLineRunner demo(PostRepository repository) {
+//        return (args) -> {
+//            repository.save(new Post(null, "이미지", "아무거나"));
+//        };
+//
+//    }
 }

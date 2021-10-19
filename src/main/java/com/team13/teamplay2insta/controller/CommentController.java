@@ -1,6 +1,9 @@
 package com.team13.teamplay2insta.controller;
 
 import com.team13.teamplay2insta.dto.CommentRequestDto;
+import com.team13.teamplay2insta.dto.CommentResponseDto;
+import com.team13.teamplay2insta.dto.ResponseDto;
+import com.team13.teamplay2insta.exception.CustomErrorException;
 import com.team13.teamplay2insta.exception.defaultResponse.DefaultResponse;
 import com.team13.teamplay2insta.exception.defaultResponse.StatusCode;
 import com.team13.teamplay2insta.exception.defaultResponse.SuccessYn;
@@ -22,25 +25,30 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@Api(tags = "Comment Controller Api V1")
 public class CommentController {
 
     private final CommentService commentService;
     private final UserService userService;
 
-
-
-//    @ApiOperation(value = "댓글 조회")
-//    @GetMapping("/api/comment")
-//    publicc List<Comment>
-
-    @ApiOperation(value = "댓글 추가")
     @PostMapping("/api/comment")
-    public List<Comment> addComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal @ApiIgnore UserDetailsImpl userDetails) {
-        User user = userService.userFromUserDetails(userDetails);
+    public ResponseDto addComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        User user = userService.userFromUserDetails(userDetails);
+        System.out.println("CommentController 댓글작성:"+userDetails);
+        checkLogin(userDetails);
         Long postId = commentRequestDto.getPostid();
+        User user = userDetails.getUser();
         Comment comment = commentService.addComment(postId, commentRequestDto, user);
-        return (List<Comment>) ResponseEntity.ok(DefaultResponse.res(SuccessYn.OK, StatusCode.OK, "댓글 추가가 완료되었습니다.", comment));
+
+        CommentResponseDto responseDto = new CommentResponseDto(
+                comment.getPost().getId(),
+                comment.getId(),
+                comment.getUser().getUsername(),
+                comment.getComment(),
+                comment.getCreatedAt(),
+                comment.getModifiedAt()
+        );
+
+        return new ResponseDto("success",responseDto);
     }
 
 //    @ApiOperation(value = "댓글 수정")
@@ -61,5 +69,11 @@ public class CommentController {
             , @AuthenticationPrincipal @ApiIgnore UserDetailsImpl userDetails
     ) {
         commentService.deleteComment(articleId, commentId, userDetails.getUser());
+    }
+
+    private void checkLogin(UserDetailsImpl userDetails) {
+        if(userDetails == null){
+            throw new CustomErrorException("로그인 사용자만 이용가능합니다.");
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.team13.teamplay2insta.model;
 
+import com.team13.teamplay2insta.dto.PostRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
