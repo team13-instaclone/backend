@@ -1,6 +1,5 @@
 package com.team13.teamplay2insta.model;
 
-import com.team13.teamplay2insta.dto.PostRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -48,5 +47,11 @@ public class Post extends Timestamped{
         this.image = postRequestDto.getImage();
         this.content = postRequestDto.getContent();
     }
+    public Post(User user, String content, String image){
+        this.user = user;
+        this.content = content;
+        this.image = image;
+    }
+
 
 }
