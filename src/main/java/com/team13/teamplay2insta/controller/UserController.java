@@ -1,8 +1,9 @@
 package com.team13.teamplay2insta.controller;
 
-import com.team13.teamplay2insta.dto.LoginRequestDto;
+import com.team13.teamplay2insta.dto.User.LoginRequestDto;
 import com.team13.teamplay2insta.dto.ResponseDto;
-import com.team13.teamplay2insta.dto.SignupRequestDto;
+import com.team13.teamplay2insta.dto.User.SignupRequestDto;
+import com.team13.teamplay2insta.dto.User.UsernameDto;
 import com.team13.teamplay2insta.model.User;
 import com.team13.teamplay2insta.security.jwt.JwtTokenProvider;
 import com.team13.teamplay2insta.service.UserService;
@@ -44,10 +45,10 @@ public class UserController {
     }
 
     //유저이름 중복확인
-    @PostMapping("/api/user/redunbancy")
-    public ResponseDto checkRedunbancy(@RequestBody String username){
-
-        userService.checkRedunbancy(username);
+    @PostMapping("/api/user/redunancy")
+    public ResponseDto checkRedunancy(@RequestBody UsernameDto username){
+        System.out.println("유저네임: "+username.getUsername());
+        userService.checkRedunbancy(username.getUsername());
 
         return new ResponseDto("success","중복되지 않습니다");
     }

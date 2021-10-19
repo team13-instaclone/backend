@@ -44,7 +44,6 @@ public class PostService {
     }
 
 
-
     public String uploadPost(PostUploadDto uploadDto, UserDetailsImpl userDetails) throws IOException {
         String imageUrl = s3Uploader.upload(uploadDto.getFile(), "image");
         User user = userDetails.getUser();
@@ -52,5 +51,9 @@ public class PostService {
         Post post = new Post(user,content,imageUrl);
         postRepository.save(post);
         return imageUrl;
+    }
+
+    public void deletePost(Long postId){
+        postRepository.deleteById(postId);
     }
 }
