@@ -19,7 +19,7 @@ public class Teamplay2InstaApplication {
 //    @Bean
 //    public CommandLineRunner demo(PostRepository repository) {
 //        return (args) -> {
-//            repository.save(new Post(null, "이미지", "아무거나"));
+//            repository.save(new Post("null", "이미지", "아무거나"));
 //        };
 //
 //    }
