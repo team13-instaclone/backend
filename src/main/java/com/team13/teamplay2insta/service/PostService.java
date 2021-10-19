@@ -1,8 +1,11 @@
 package com.team13.teamplay2insta.service;
 
 import com.team13.teamplay2insta.awsS3.S3Uploader;
+import com.team13.teamplay2insta.dto.PostSaveDto;
 import com.team13.teamplay2insta.dto.PostUploadDto;
 import com.team13.teamplay2insta.exception.CustomErrorException;
+import com.team13.teamplay2insta.model.Post;
+import com.team13.teamplay2insta.model.User;
 import com.team13.teamplay2insta.repository.PostRepository;
 import com.team13.teamplay2insta.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -44,8 +47,10 @@ public class PostService {
 
     public String uploadPost(PostUploadDto uploadDto, UserDetailsImpl userDetails) throws IOException {
         String imageUrl = s3Uploader.upload(uploadDto.getFile(), "image");
-        String username = uploadDto.getUsername();
+        User user = userDetails.getUser();
         String content = uploadDto.getContent();
+        Post post = new Post(user,content,imageUrl);
+        postRepository.save(post);
         return imageUrl;
     }
 }

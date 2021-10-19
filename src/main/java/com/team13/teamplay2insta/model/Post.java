@@ -30,5 +30,11 @@ public class Post extends Timestamped{
     @OneToMany(mappedBy = "post")
     private List<Comment> comment;
 
+    public Post(User user, String content, String image){
+        this.user = user;
+        this.content = content;
+        this.image = image;
+    }
+
 
 }

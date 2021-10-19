@@ -3,6 +3,7 @@ package com.team13.teamplay2insta.controller;
 import com.team13.teamplay2insta.awsS3.S3Uploader;
 import com.team13.teamplay2insta.dto.PostUploadDto;
 import com.team13.teamplay2insta.dto.ResponseDto;
+import com.team13.teamplay2insta.exception.CustomErrorException;
 import com.team13.teamplay2insta.security.UserDetailsImpl;
 import com.team13.teamplay2insta.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -30,10 +31,17 @@ public class PostController {
 
     @PostMapping("/api/post")
     public ResponseDto upload(PostUploadDto uploadDto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        checkLogin(userDetails);
         String imageUrl = postService.uploadPost(uploadDto,userDetails);
         if(imageUrl == null) return new ResponseDto("failed","이미지 업로드에 실패하였습니다");
 
         return new ResponseDto("success","저장됨");
+    }
+
+    private void checkLogin(UserDetailsImpl userDetails) {
+        if(userDetails == null){
+            throw new CustomErrorException("로그인 사용자만 이용가능합니다.");
+        }
     }
 
 }
