@@ -28,6 +28,12 @@ public class CommentController {
     private final CommentService commentService;
     private final UserService userService;
 
+
+
+//    @ApiOperation(value = "댓글 조회")
+//    @GetMapping("/api/comment")
+//    publicc List<Comment>
+
     @ApiOperation(value = "댓글 추가")
     @PostMapping("/api/comment")
     public List<Comment> addComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal @ApiIgnore UserDetailsImpl userDetails) {
