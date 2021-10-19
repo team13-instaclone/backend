@@ -25,18 +25,18 @@ public class PostController {
         return postRepository.findAllByOrderByCreatedAtDesc();
     }
 
-//    // 상세페이지 수정
-//    @PutMapping("/api/post/{id}")
-//    public Long updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
-//        postService.update(id, postRequestDto);
-//        return id;
-//    }
-//
-//    // 상세페이지 삭제
-//    @DeleteMapping("/api/post/{id}")
-//    public Long deletePost(@PathVariable Long id) {
-//        postRepository.deleteById(id);
-//        return id;
-//    }
+    // 상세페이지 수정
+    @PutMapping("/api/post/{id}")
+    public Long updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
+        postService.update(id, postRequestDto);
+        return id;
+    }
+
+    // 상세페이지 삭제
+    @DeleteMapping("/api/post/{id}")
+    public Long deletePost(@PathVariable Long id) {
+        postRepository.deleteById(id);
+        return id;
+    }
 
 }
