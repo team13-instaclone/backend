@@ -1,6 +1,7 @@
 package com.team13.teamplay2insta.service;
 
-import com.team13.teamplay2insta.dto.CommentRequestDto;
+import com.team13.teamplay2insta.dto.ResponseDto;
+import com.team13.teamplay2insta.dto.comment.CommentRequestDto;
 import com.team13.teamplay2insta.exception.*;
 import com.team13.teamplay2insta.exception.defaultResponse.DefaultResponse;
 import com.team13.teamplay2insta.exception.defaultResponse.StatusCode;
@@ -66,27 +67,17 @@ public class CommentService {
 //    }
 
     //댓글 삭제
-    public ResponseEntity deleteComment(Long postid, Long commentid,User user) {
+    public void deleteComment(Long commentid, User user) {
 
-        // 게시글 존재여부 확인
-        Post post = postRepository.findById(postid).orElseThrow(
-                () -> new PostNotFoundException("해당 게시물을 찾을 수 없어 댓글을 삭제 할 수 없습니다."));
-
-        // 댓글 존재여부 확인
+     // 댓글 존재여부 확인
         Comment comment = commentRepository.findById(commentid).orElseThrow(
-                () -> new CommentNotFoundException("해당 댓글을 찾을 수 없어 삭제할 수 없습니다."));
-
-        // DB에 있는 comment 의 articleId와 DB에 있는 post ID를 비교
-        if(!post.getId().equals(comment.getPost().getId()))
-            new PostNotFoundException("해당 게시글을 또는 댓글의 정보가 잘못되었습니다. 관리자 확인이 필요합니다.");
-
+                () -> new CustomErrorException("해당 댓글을 찾을 수 없어 삭제할 수 없습니다."));
 
         //댓글에 저장되어있는 사용자의 username과 현재 사용자의 username 비교하기
         if(!comment.getUser().getUsername().equals(user.getUsername()))
-            throw new AccessDeniedException("회원님의 댓글만 삭제 할 수 있습니다.");
+            throw new CustomErrorException("회원님의 댓글만 삭제 할 수 있습니다.");
 
         commentRepository.delete(comment);
-        return new ResponseEntity(DefaultResponse.res(SuccessYn.OK, StatusCode.OK, "댓글 삭제가 완료되었습니다.", null), HttpStatus.OK);
     }
 
 

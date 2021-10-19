@@ -1,4 +1,4 @@
-package com.team13.teamplay2insta.dto;
+package com.team13.teamplay2insta.dto.comment;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

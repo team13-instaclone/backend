@@ -1,27 +1,21 @@
 package com.team13.teamplay2insta.controller;
 
-import com.team13.teamplay2insta.dto.CommentRequestDto;
-import com.team13.teamplay2insta.dto.CommentResponseDto;
+import com.team13.teamplay2insta.dto.comment.CommentDeleteRequestDto;
+import com.team13.teamplay2insta.dto.comment.CommentRequestDto;
+import com.team13.teamplay2insta.dto.comment.CommentResponseDto;
 import com.team13.teamplay2insta.dto.ResponseDto;
 import com.team13.teamplay2insta.exception.CustomErrorException;
-import com.team13.teamplay2insta.exception.defaultResponse.DefaultResponse;
-import com.team13.teamplay2insta.exception.defaultResponse.StatusCode;
-import com.team13.teamplay2insta.exception.defaultResponse.SuccessYn;
 import com.team13.teamplay2insta.model.Comment;
 import com.team13.teamplay2insta.model.User;
 import com.team13.teamplay2insta.security.UserDetailsImpl;
 import com.team13.teamplay2insta.service.CommentService;
 import com.team13.teamplay2insta.service.UserService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -61,14 +55,15 @@ public class CommentController {
 //        commentService.modifyComment(commentId, commentRequestDto, userDetails.getUser());
 //    }
 
-    @ApiOperation(value = "댓글 삭제")
     @DeleteMapping("/api/comment")
-    public void deleteComment(
-            @PathVariable @ApiParam(value = "댓글 아이디", required = true) Long commentId
-            , @RequestParam @ApiParam(value = "댓글 한개의 정보를 가진 객체", required = true) Long articleId
-            , @AuthenticationPrincipal @ApiIgnore UserDetailsImpl userDetails
+    public ResponseDto deleteComment(
+            @RequestBody CommentDeleteRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        commentService.deleteComment(articleId, commentId, userDetails.getUser());
+        checkLogin(userDetails);
+        commentService.deleteComment(requestDto.getCommentid(), userDetails.getUser());
+
+        return new ResponseDto("success", "댓글이 삭제되었습니다");
     }
 
     private void checkLogin(UserDetailsImpl userDetails) {

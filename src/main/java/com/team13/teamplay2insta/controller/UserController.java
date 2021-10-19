@@ -1,9 +1,9 @@
 package com.team13.teamplay2insta.controller;
 
-import com.team13.teamplay2insta.dto.User.LoginRequestDto;
+import com.team13.teamplay2insta.dto.user.LoginRequestDto;
 import com.team13.teamplay2insta.dto.ResponseDto;
-import com.team13.teamplay2insta.dto.User.SignupRequestDto;
-import com.team13.teamplay2insta.dto.User.UsernameDto;
+import com.team13.teamplay2insta.dto.user.SignupRequestDto;
+import com.team13.teamplay2insta.dto.user.UsernameDto;
 import com.team13.teamplay2insta.model.User;
 import com.team13.teamplay2insta.security.jwt.JwtTokenProvider;
 import com.team13.teamplay2insta.service.UserService;

@@ -1,4 +1,4 @@
-package com.team13.teamplay2insta.dto.User;
+package com.team13.teamplay2insta.dto.user;
 
 import lombok.Data;
 
