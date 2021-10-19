@@ -14,6 +14,9 @@ public class PostRequestDto {
     private Long id;
 
     @NotBlank
+    private String username;
+
+    @NotBlank
     private String image;
 
     @NotBlank
