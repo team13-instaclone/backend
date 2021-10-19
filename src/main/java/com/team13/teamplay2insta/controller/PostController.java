@@ -37,6 +37,9 @@ public class PostController {
         return new ResponseDto("success","저장됨");
     }
 
+//    @PutMapping("/api/post")
+//    public ResponseDto update(@RequestBody)
+
     @DeleteMapping("/api/post")
     public ResponseDto deletePost(@RequestParam Long postid, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         checkLogin(userDetails);

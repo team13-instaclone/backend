@@ -66,6 +66,8 @@ public class PostService {
         deleteS3(post.getImage());
     }
 
+
+
     public void deleteS3(@RequestParam String imageName){
         //https://S3 버킷 URL/버킷에 생성한 폴더명/이미지이름
         String keyName = imageName.split("/")[4]; // 이미지이름만 추출
