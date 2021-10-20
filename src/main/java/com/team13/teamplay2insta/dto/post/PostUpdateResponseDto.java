@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 public class PostUpdateResponseDto {
 
     private Long postId;
-    private String username;
     private String image;
+    private String username;
     private String content;
-    LocalDateTime createdAt;
-    LocalDateTime modifiedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 }

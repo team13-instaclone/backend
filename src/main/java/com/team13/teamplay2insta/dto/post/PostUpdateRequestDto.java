@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class PostUpdateRequestDto {
-    private Long postId;
+    private Long postid;
 
     @NotBlank
     private String username;
@@ -15,7 +15,5 @@ public class PostUpdateRequestDto {
     @NotBlank
     private String content;
 
-    private MultipartFile file;
-
-
+    private MultipartFile image;
 }

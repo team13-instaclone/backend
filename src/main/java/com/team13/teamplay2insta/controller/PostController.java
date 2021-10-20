@@ -2,6 +2,7 @@ package com.team13.teamplay2insta.controller;
 
 import com.team13.teamplay2insta.awsS3.S3Uploader;
 import com.team13.teamplay2insta.dto.post.PostUpdateRequestDto;
+import com.team13.teamplay2insta.dto.post.PostUpdateResponseDto;
 import com.team13.teamplay2insta.dto.post.PostUploadDto;
 import com.team13.teamplay2insta.dto.post.ResponseDto;
 import com.team13.teamplay2insta.exception.CustomErrorException;
@@ -30,8 +31,6 @@ public class PostController {
         return postRepository.findAllByOrderByCreatedAtDesc();
     }
 
-
-
     //로컬에 저장하는 테스트용 api입니다.
     @PostMapping("/api/postToLocal")
     public ResponseDto uploadToLocal(PostUploadDto uploadDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
@@ -50,18 +49,13 @@ public class PostController {
     }
 
     @PutMapping("/api/post")
-    public ResponseDto update(PostUpdateRequestDto updateRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseDto update(PostUpdateRequestDto updateRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
         checkLogin(userDetails);
-        String checkPost =  postService.updatePost(updateRequestDto,userDetails);
+        PostUpdateResponseDto postUpdateResponseDto = postService.updatePost(updateRequestDto,userDetails);
 
-        if(checkPost == null) return new ResponseDto("failed","수정에 실패하였습니다");
-
-        return new ResponseDto("success","수정됨");
+        return new ResponseDto("success",postUpdateResponseDto);
     }
 
-
-//    @PutMapping("/api/post")
-//    public ResponseDto update(@RequestBody)
 
     @DeleteMapping("/api/post")
     public ResponseDto deletePost(@RequestParam Long postid, @AuthenticationPrincipal UserDetailsImpl userDetails) {
