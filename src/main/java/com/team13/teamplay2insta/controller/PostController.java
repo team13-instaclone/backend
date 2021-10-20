@@ -1,17 +1,20 @@
 package com.team13.teamplay2insta.controller;
 
 import com.team13.teamplay2insta.awsS3.S3Uploader;
-import com.team13.teamplay2insta.dto.PostUploadDto;
-import com.team13.teamplay2insta.dto.ResponseDto;
+import com.team13.teamplay2insta.dto.post.PostUpdateRequestDto;
+import com.team13.teamplay2insta.dto.post.PostUploadDto;
+import com.team13.teamplay2insta.dto.post.ResponseDto;
 import com.team13.teamplay2insta.exception.CustomErrorException;
+import com.team13.teamplay2insta.model.Post;
+import com.team13.teamplay2insta.repository.PostRepository;
 import com.team13.teamplay2insta.security.UserDetailsImpl;
 import com.team13.teamplay2insta.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +22,15 @@ public class PostController {
 
     private final PostService postService;
     private final S3Uploader s3Uploader;
+    private final PostRepository postRepository;
+
+    //메인페이지 게시글 조회
+    @GetMapping("/api/main")
+    public List<Post> getPost(){
+        return postRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+
 
     //로컬에 저장하는 테스트용 api입니다.
     @PostMapping("/api/postToLocal")
@@ -36,6 +48,17 @@ public class PostController {
 
         return new ResponseDto("success","저장됨");
     }
+
+    @PutMapping("/api/post")
+    public ResponseDto update(PostUpdateRequestDto updateRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        checkLogin(userDetails);
+        String checkPost =  postService.updatePost(updateRequestDto,userDetails);
+
+        if(checkPost == null) return new ResponseDto("failed","수정에 실패하였습니다");
+
+        return new ResponseDto("success","수정됨");
+    }
+
 
 //    @PutMapping("/api/post")
 //    public ResponseDto update(@RequestBody)

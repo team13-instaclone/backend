@@ -1,11 +1,10 @@
 package com.team13.teamplay2insta.model;
 
-import com.team13.teamplay2insta.dto.PostRequestDto;
+import com.team13.teamplay2insta.dto.post.PostRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -50,6 +49,16 @@ public class Post extends Timestamped{
     }
     public Post(User user, String content, String image){
         this.user = user;
+        this.content = content;
+        this.image = image;
+    }
+    public Post(Long id, User user, String content, String image){
+        this.id = id;
+        this.user = user;
+        this.content = content;
+        this.image = image;
+    }
+    public void updatePost(String content, String image){
         this.content = content;
         this.image = image;
     }

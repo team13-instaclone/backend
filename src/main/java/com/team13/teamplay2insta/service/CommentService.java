@@ -1,13 +1,9 @@
 package com.team13.teamplay2insta.service;
 
-import com.team13.teamplay2insta.dto.ResponseDto;
+import com.team13.teamplay2insta.dto.post.ResponseDto;
 import com.team13.teamplay2insta.dto.comment.CommentRequestDto;
-import com.team13.teamplay2insta.dto.comment.CommentUpdateRequestDto;
 import com.team13.teamplay2insta.dto.comment.CommentUpdateResponseDto;
 import com.team13.teamplay2insta.exception.*;
-import com.team13.teamplay2insta.exception.defaultResponse.DefaultResponse;
-import com.team13.teamplay2insta.exception.defaultResponse.StatusCode;
-import com.team13.teamplay2insta.exception.defaultResponse.SuccessYn;
 import com.team13.teamplay2insta.model.Comment;
 import com.team13.teamplay2insta.model.Post;
 import com.team13.teamplay2insta.model.User;
@@ -16,8 +12,6 @@ import com.team13.teamplay2insta.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
