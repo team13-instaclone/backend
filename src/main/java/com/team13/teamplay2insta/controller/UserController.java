@@ -1,7 +1,7 @@
 package com.team13.teamplay2insta.controller;
 
 import com.team13.teamplay2insta.dto.user.LoginRequestDto;
-import com.team13.teamplay2insta.dto.ResponseDto;
+import com.team13.teamplay2insta.dto.post.ResponseDto;
 import com.team13.teamplay2insta.dto.user.SignupRequestDto;
 import com.team13.teamplay2insta.dto.user.UsernameDto;
 import com.team13.teamplay2insta.model.User;
