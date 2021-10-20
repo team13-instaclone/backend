@@ -29,35 +29,13 @@ public class Post extends Timestamped{
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comment;
-
-    public Post(Long id, String image, String content) {
-        this.id = id;
-        this.image = image;
-        this.content = content;
-    }
-
-    public Post(PostRequestDto postRequestDto) {
-        this.id = postRequestDto.getId();
-        this.image = postRequestDto.getImage();
-        this.content = postRequestDto.getContent();
-    }
-
-    public void update(PostRequestDto postRequestDto) {
-        this.id = postRequestDto.getId();
-        this.image = postRequestDto.getImage();
-        this.content = postRequestDto.getContent();
-    }
+    
     public Post(User user, String content, String image){
         this.user = user;
         this.content = content;
         this.image = image;
     }
-    public Post(Long id, User user, String content, String image){
-        this.id = id;
-        this.user = user;
-        this.content = content;
-        this.image = image;
-    }
+
     public void updatePost(String content, String image){
         this.content = content;
         this.image = image;
