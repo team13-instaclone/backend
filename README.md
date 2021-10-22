@@ -14,7 +14,7 @@
   
   ## 💡 API for this project
   
-  > ** Main Page(all posts) api**  
+  > **Main Page(all posts) api**  
   **URL :** /api/main
   **request : (Type: Get)
   **response :** '{"result":"success","data":{[{"postid" : 게시물 고유 아이디,"username":작성자이름, "image": 이미지 경로,"date": 작성날짜,"content": 게시글},{"postid" : 게시물 고유 아이디,"username":작성자이름,"image": 이미지 경로,"date": 작성날짜, "content": 게시글}] }}
@@ -24,37 +24,37 @@
   **request :**{"username": 아이디,"content": 게시글,"image": 사진}
   **response :** {"result":"success","data": "게시물 업로드 성공"}  
   
-   > ** Detail of the post api**  
+   > **Detail of the post api**  
   **URL :** /api/detail
   **request : ** {"postid":게시물id}
   **response :** {"result":"success","data":{"postid" : 게시물 아이디,"username":작성자이름, "image": 이미지 경로, "date": 작성날짜, "content": 게시글}}
 
- > ** Delete post api**  
+ > **Delete post api**  
   **URL :** /api/post
   **request : ** {"postid":게시물id}
   **response :** {"result":"success","data":"게시물 삭제 성공"}
   
-   > ** Edit post api**  
+   > **Edit post api**  
   **URL :** /api/post
   **request : ** {"postid":게시물id,"username": 아이디,"content": 게시글,"image": 사진}
   **response :** {"result":"success","data":{"postid" : 게시물 아이디,"image": 이미지 경로, "username":작성자, "date": 작성날짜,"content": 게시글 }}
   
-   > ** Comment View api**  
+   > **Comment View api**  
   **URL :** /api/comment
   **request : ** {"postid":게시물id}
   **response :** {"result":"success","data":{"commentid":댓글아이디,"comment":댓글내용,"username":아이디, "date":댓글작성날짜}}
   
-   > ** Creating Comment api**  
+   > **Creating Comment api**  
   **URL :** /api/comment
   **request : ** {"postid": 게시물아이디, "username": 아이디, "comment": 댓글내용}
   **response :** {"result":"success","data":{"postid":게시물 아이디,"commentid": 코멘트 아이디, "username":아이디, "comment": 댓글내용, "date": 작성날짜}}
   
-  > ** Deleting Comment api**  
+  > **Deleting Comment api**  
   **URL :** /api/comment
   **request : ** {"commentid":댓글아이디}
   **response :** {"result":"success","data":"댓글삭제 성공"}
   
-   > ** Editing Comment api**  
+   > **Editing Comment api**  
   **URL :** /api/comment
   **request : ** {"commentid":댓글아이디,"comment": 댓글내용}
   **response :** {"result":"success","data":{"commentid":댓글아이디,"comment":댓글내용, "username":작성자,"date":댓글작성날짜}}
