@@ -26,11 +26,13 @@
 
   > **Creating post api**  
   **URL :**/api/post  
+  
   **request :**{"username": 아이디,"content": 게시글,"image": 사진}
   **response :** {"result":"success","data": "게시물 업로드 성공"}  
   
    > **Detail of the post api**  
   **URL :** /api/detail
+  
   **request : ** {"postid":게시물id}
   **response :** {"result":"success","data":{"postid" : 게시물 아이디,"username":작성자이름, "image": 이미지 경로, "date": 작성날짜, "content": 게시글}}
 
