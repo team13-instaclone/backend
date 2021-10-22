@@ -13,5 +13,4 @@ public class CommentResponseDto {
     String username;
     String comment;
     LocalDateTime createdAt;
-    LocalDateTime modifiedAt;
 }

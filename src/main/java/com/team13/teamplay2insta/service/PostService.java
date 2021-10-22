@@ -3,6 +3,7 @@ package com.team13.teamplay2insta.service;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.team13.teamplay2insta.awsS3.S3Uploader;
+import com.team13.teamplay2insta.dto.post.MainResponseDto;
 import com.team13.teamplay2insta.dto.post.PostUpdateRequestDto;
 import com.team13.teamplay2insta.dto.post.PostUpdateResponseDto;
 import com.team13.teamplay2insta.dto.post.PostUploadDto;
@@ -23,6 +24,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -51,6 +54,29 @@ public class PostService {
         }
     }
 
+        public List<MainResponseDto> getAllContents() {
+            List<Post> postlist = postRepository.findAllByOrderByCreatedAtDesc();
+            List<MainResponseDto> mainResponseDtos = new ArrayList<>();
+
+            for(Post post : postlist){
+                MainResponseDto mainResponseDto = new MainResponseDto(
+                        post.getId(),
+                        post.getUser().getUsername(),
+                        post.getImage(),
+                        post.getCreatedAt(),
+                        post.getModifiedAt(),
+                        post.getContent()
+                );
+
+                mainResponseDtos.add(mainResponseDto);
+            }
+
+            return mainResponseDtos;
+        }
+
+
+
+
     public String uploadPost(PostUploadDto uploadDto, UserDetailsImpl userDetails) throws IOException {
         String imageUrl = s3Uploader.upload(uploadDto.getFile(), "image");
         User user = userDetails.getUser();
@@ -59,6 +85,9 @@ public class PostService {
         postRepository.save(post);
         return imageUrl;
     }
+
+
+
 
     @Transactional
     public PostUpdateResponseDto updatePost(PostUpdateRequestDto updateRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {

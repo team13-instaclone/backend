@@ -1,15 +1,13 @@
 package com.team13.teamplay2insta.controller;
 
 import com.team13.teamplay2insta.awsS3.S3Uploader;
-import com.team13.teamplay2insta.dto.post.PostUpdateRequestDto;
-import com.team13.teamplay2insta.dto.post.PostUpdateResponseDto;
-import com.team13.teamplay2insta.dto.post.PostUploadDto;
-import com.team13.teamplay2insta.dto.post.ResponseDto;
+import com.team13.teamplay2insta.dto.post.*;
 import com.team13.teamplay2insta.exception.CustomErrorException;
 import com.team13.teamplay2insta.model.Post;
 import com.team13.teamplay2insta.repository.PostRepository;
 import com.team13.teamplay2insta.security.UserDetailsImpl;
 import com.team13.teamplay2insta.service.PostService;
+import jdk.jfr.internal.tool.Main;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +23,19 @@ public class PostController {
     private final S3Uploader s3Uploader;
     private final PostRepository postRepository;
 
-    //메인페이지 게시글 조회
+    //메인페이지 게시글 조회`
+//    @GetMapping("/api/main")
+//    public List<Post> getPost(){
+//
+//        return postRepository.findAllByOrderByCreatedAtDesc();
+//    }
+    //메인페이지 게시글 조회`
     @GetMapping("/api/main")
-    public List<Post> getPost(){
-        return postRepository.findAllByOrderByCreatedAtDesc();
+    public ResponseDto getPost(){
+         List<MainResponseDto> data = postService.getAllContents() ;
+
+        return new ResponseDto("success", data);
+
     }
 
     //로컬에 저장하는 테스트용 api입니다.

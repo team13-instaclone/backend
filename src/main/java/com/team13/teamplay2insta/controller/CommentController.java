@@ -8,6 +8,7 @@ import com.team13.teamplay2insta.dto.comment.CommentUpdateRequestDto;
 import com.team13.teamplay2insta.exception.CustomErrorException;
 import com.team13.teamplay2insta.model.Comment;
 import com.team13.teamplay2insta.model.User;
+import com.team13.teamplay2insta.repository.CommentRepository;
 import com.team13.teamplay2insta.security.UserDetailsImpl;
 import com.team13.teamplay2insta.service.CommentService;
 import com.team13.teamplay2insta.service.UserService;
@@ -16,12 +17,16 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 public class CommentController {
 
     private final CommentService commentService;
     private final UserService userService;
+    private final CommentRepository commentRepository;
 
     @PostMapping("/api/comment")
     public ResponseDto addComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -37,8 +42,7 @@ public class CommentController {
                 comment.getId(),
                 comment.getUser().getUsername(),
                 comment.getComment(),
-                comment.getCreatedAt(),
-                comment.getModifiedAt()
+                comment.getCreatedAt()
         );
 
         return new ResponseDto("success",responseDto);
@@ -71,5 +75,25 @@ public class CommentController {
         if(userDetails == null){
             throw new CustomErrorException("로그인 사용자만 이용가능합니다.");
         }
+    }
+
+    // 댓글 조회
+    @GetMapping("/api/comment")
+    @ResponseBody
+    public ResponseDto getComment(@RequestParam Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        checkLogin(userDetails);
+        List<Comment> commentList = commentRepository.findAllByPostId(postId);
+        List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
+        for (Comment comment : commentList) {
+            CommentResponseDto newCommentDto = new CommentResponseDto(
+                    comment.getPost().getId(),
+                    comment.getId(),
+                    comment.getUser().getUsername(),
+                    comment.getComment(),
+                    comment.getCreatedAt()
+            );
+            commentResponseDtoList.add(newCommentDto);
+        }
+        return new ResponseDto("success", commentResponseDtoList);
     }
 }
