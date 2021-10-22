@@ -89,13 +89,6 @@
   **request :** {"username": 아이디}
   **response :** {"result":"success","data":"중복되지 않습니다"}
   
- 
-  ***
- 
-  ## 관련 링크
-    
-  # Solved Problems
- 
     
   
   
