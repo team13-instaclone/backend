@@ -11,6 +11,11 @@
   
   # For what we made this project
   > To clone code Instagram for interpreting how Instagram or other SNS services operates
+
+  # DB diagram
+  
+<img width="500" alt="Screen Shot 2021-10-22 at 8 10 13 PM" src="https://user-images.githubusercontent.com/90609214/138444462-7ca47df9-1cf9-4091-99d2-1b27092d6936.png">
+
   
   ## 💡 API for this project
   
