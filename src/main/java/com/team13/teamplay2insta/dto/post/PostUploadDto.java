@@ -7,5 +7,5 @@ import org.springframework.web.multipart.MultipartFile;
 public class PostUploadDto {
     private String username;
     private String content;
-    private MultipartFile file;
+    private MultipartFile image;
 }

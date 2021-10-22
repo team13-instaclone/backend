@@ -3,6 +3,7 @@ package com.team13.teamplay2insta.controller;
 import com.team13.teamplay2insta.dto.user.LoginRequestDto;
 import com.team13.teamplay2insta.dto.post.ResponseDto;
 import com.team13.teamplay2insta.dto.user.SignupRequestDto;
+import com.team13.teamplay2insta.dto.user.UserResponseDataDto;
 import com.team13.teamplay2insta.dto.user.UsernameDto;
 import com.team13.teamplay2insta.model.User;
 import com.team13.teamplay2insta.security.jwt.JwtTokenProvider;
@@ -32,6 +33,9 @@ public class UserController {
         User user = userService.login(requestDto.getUsername(), requestDto.getPwd());
         String checkedUsername = user.getUsername();
         String token = jwtTokenProvider.createToken(checkedUsername);
+        String checkedName = user.getName();
+
+        UserResponseDataDto dataDto = new UserResponseDataDto(token,checkedUsername,checkedName);
 
         response.setHeader("X-AUTH-TOKEN", token);
         Cookie cookie = new Cookie("X-AUTH-TOKEN", token);
@@ -41,7 +45,7 @@ public class UserController {
         response.addCookie(cookie);
 
         //body에도 보내주기 혹시모르니까
-        return new ResponseDto("success",token);
+        return new ResponseDto("success",dataDto);
     }
 
     //유저이름 중복확인

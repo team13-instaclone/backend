@@ -30,10 +30,8 @@ public class User extends Timestamped{
         this.username = username;
         this.name = name;
         this.pwd = pwd;
-
     }
 
     public User() {
-
     }
 }

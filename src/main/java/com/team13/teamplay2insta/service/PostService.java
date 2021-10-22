@@ -43,11 +43,11 @@ public class PostService {
     //로컬에 저장하는 연습용 api를 위한 메서드입니다.
     public void uploadPostToLocal(PostUploadDto postUploadDto, UserDetailsImpl userDetails){
         UUID uuid = UUID.randomUUID();//고유성이 보장됨
-        String imageFileName = uuid+postUploadDto.getFile().getOriginalFilename(); //photo.jpg
+        String imageFileName = uuid+postUploadDto.getImage().getOriginalFilename(); //photo.jpg
 
         Path imageFilePath = Paths.get(uploadFolder+imageFileName);
         try{
-            Files.write(imageFilePath, postUploadDto.getFile().getBytes());
+            Files.write(imageFilePath, postUploadDto.getImage().getBytes());
             System.out.println(uploadFolder);
         }catch (Exception e){
             throw new CustomErrorException("파일저장 실패");
@@ -78,7 +78,7 @@ public class PostService {
 
 
     public String uploadPost(PostUploadDto uploadDto, UserDetailsImpl userDetails) throws IOException {
-        String imageUrl = s3Uploader.upload(uploadDto.getFile(), "image");
+        String imageUrl = s3Uploader.upload(uploadDto.getImage(), "image");
         User user = userDetails.getUser();
         String content = uploadDto.getContent();
         Post post = new Post(user,content,imageUrl);
