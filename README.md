@@ -10,7 +10,7 @@
   * Html, css, Jquery
   
   # For what we made this project
-  > To clone code Instagram for interpreting how Instagram or other SNS services operates
+  > To clone code Instagram for interpreting how Instagram or other SNS services operate
 
   # DB diagram
   
